@@ -1,0 +1,70 @@
+package com.smart.classroom.subscription.domain.biz.order.model;
+
+import com.smart.classroom.subscription.domain.biz.order.enums.OrderStatus;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.Date;
+
+/**
+ * @author hanson
+ * @date 2024/9/22 23:02
+ */
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class OrderModel {
+
+    /**
+     * 主键
+     */
+    private Long id;
+
+    /**
+     * 创建时间
+     */
+    private Date createTime = null;
+
+    /**
+     * 修改时间
+     */
+    private Date updateTime = null;
+
+    /**
+     * 订单唯一编号，整个系统唯一，带有前缀
+     */
+    private String no = null;
+
+    /**
+     * 读者id
+     */
+    private Long readerId = null;
+
+    /**
+     * 专栏id
+     */
+    private Long columnId = null;
+
+    /**
+     * 专栏报价id
+     */
+    private Long columnQuotaId = null;
+
+    /**
+     * 支付订单id
+     */
+    private Long paymentId = null;
+
+    /**
+     * 价格（单位：分）
+     */
+    private Long price = null;
+
+    /**
+     * 状态 CREATED/PAID/SUBSCRIBED/CLOSED/CANCELED
+     */
+    private OrderStatus status = OrderStatus.CREATED;
+}
