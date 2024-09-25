@@ -51,7 +51,7 @@ public class OrderModel {
     /**
      * 专栏报价id
      */
-    private Long columnQuotaId = null;
+    private Long columnQuoteId = null;
 
     /**
      * 支付订单id

@@ -1,6 +1,7 @@
 package com.smart.classroom.subscription.domain.biz.subscription.repository.query;
 
 import com.smart.classroom.subscription.domain.biz.subscription.enums.SubscriptionStatus;
+import com.smart.classroom.subscription.utility.enums.SortDirection;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,8 +21,8 @@ public class SubscriptionPageQuery {
     int pageNum = 1;
     int pageSize = 20;
 
-//    SortDirection orderCreateTime;
-//    SortDirection orderUpdateTime;
+    SortDirection orderCreateTime;
+    SortDirection orderUpdateTime;
     Long readerId;
     Long columnId;
     Long orderId;

@@ -46,6 +46,11 @@ public class SubscriptionModel {
     private Long columnId = null;
 
     /**
+     * 订单id
+     */
+    private Long orderId = null;
+
+    /**
      * 状态 CREATED/OK/DISABLED
      */
     private SubscriptionStatus status = SubscriptionStatus.CREATED;
