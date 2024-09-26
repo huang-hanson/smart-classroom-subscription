@@ -2,15 +2,24 @@ package com.smart.classroom.subscription.infrastructure.middleware.rocketmq;
 
 import com.smart.classroom.subscription.domain.middleware.MqConsumer;
 import com.smart.classroom.subscription.domain.middleware.MqConsumerListener;
+import com.smart.classroom.subscription.domain.middleware.info.MqMessagePayloadInfo;
 import com.smart.classroom.subscription.utility.exception.UtilException;
 import com.smart.classroom.subscription.utility.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.rocketmq.client.apis.ClientConfiguration;
+import org.apache.rocketmq.client.apis.ClientServiceProvider;
+import org.apache.rocketmq.client.apis.consumer.ConsumeResult;
+import org.apache.rocketmq.client.apis.consumer.FilterExpression;
+import org.apache.rocketmq.client.apis.consumer.FilterExpressionType;
 import org.apache.rocketmq.client.apis.consumer.PushConsumer;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.ContextStoppedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -83,6 +92,59 @@ public class RockerMqConsumerImpl implements MqConsumer {
 
         if (this.pushConsumers.containsKey(eventName)) {
             throw new UtilException("{}已经完成了注册，请勿重复注册", eventName);
+        }
+
+        final ClientServiceProvider provider = ClientServiceProvider.loadService();
+
+        ClientConfiguration clientConfiguration = ClientConfiguration.newBuilder()
+                .setEndpoints(ENDPOINT)
+                .build();
+
+        // 订阅消息的过滤规则，表示订阅所有Tag的消息。 我们使用eventName来充当tag.
+        FilterExpression filterExpression = new FilterExpression(eventName, FilterExpressionType.TAG);
+
+        try {
+            // 初始化PushConsumer，需要绑定消费者分组ConsumerGroup、通信参数以及订阅关系。
+            PushConsumer pushConsumer = provider.newPushConsumerBuilder()
+                    .setClientConfiguration(clientConfiguration)
+                    // 设置消费者分组。
+                    .setConsumerGroup(CONSUMER_GROUP)
+                    // 设置预绑定的订阅关系。
+                    .setSubscriptionExpressions(Collections.singletonMap(TOPIC, filterExpression))
+                    // 设置消费监听器。
+                    .setMessageListener(messageView -> {
+
+                        String messageId = messageView.getMessageId().toString();
+                        String content = StandardCharsets.UTF_8.decode(messageView.getBody()).toString();
+                        Collection<String> keys = messageView.getKeys();
+                        String keysStr = String.join(",", keys);
+                        log.info("接收到消息，messageId:{},content:{},keys:{},keyStr{}", messageId, content, keys, keysStr);
+
+                        try {
+                            MqMessagePayloadInfo mqMessagePayloadInfo = new MqMessagePayloadInfo();
+                            mqMessagePayloadInfo.setMessageId(messageId);
+                            mqMessagePayloadInfo.setContent(content);
+                            mqMessagePayloadInfo.setKeys(keysStr);
+
+                            boolean success = mqConsumerListener.consume(mqMessagePayloadInfo);
+
+                            log.info("消息消费成功 messageId={},keys={}", messageId, keysStr);
+
+                            // 处理消息并返回消费结果
+                            return success ? ConsumeResult.SUCCESS : ConsumeResult.FAILURE;
+                        } catch (Throwable throwable) {
+                            log.error("在消费消息过程中遇到了异常 messageId={},keys={}", messageId, keysStr, throwable);
+
+                            return ConsumeResult.FAILURE;
+                        }
+                    }).build();
+
+            this.pushConsumers.put(eventName, pushConsumer);
+
+            log.info("注册Mq消息监听成功 eventName = {}", eventName);
+
+        } catch (Throwable throwable){
+            log.error("在注册Mq消息监听时出错了 eventName = {}", eventName, throwable);
         }
     }
 }
