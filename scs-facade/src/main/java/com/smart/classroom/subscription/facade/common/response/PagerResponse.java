@@ -37,7 +37,7 @@ public class PagerResponse<T> implements Serializable {
 
     private List<T> data;
 
-    public PagerResponse(long pageNum, long pageSize, long totalItems, long totalPages, List<T> data) {
+    public PagerResponse(long pageNum, long pageSize, long totalItems, List<T> data) {
         if (pageSize <= 0) {
             pageSize = 10;
         }
