@@ -1,8 +1,8 @@
 package com.smart.classroom.subscription.infrastructure.middleware.rocketmq;
 
-import com.smart.classroom.subscription.domain.middleware.MqConsumer;
-import com.smart.classroom.subscription.domain.middleware.MqConsumerListener;
-import com.smart.classroom.subscription.domain.middleware.info.MqMessagePayloadInfo;
+import com.smart.classroom.subscription.domain.middleware.mq.MqConsumer;
+import com.smart.classroom.subscription.domain.middleware.mq.MqConsumerListener;
+import com.smart.classroom.subscription.domain.middleware.mq.info.MqMessagePayloadInfo;
 import com.smart.classroom.subscription.utility.exception.UtilException;
 import com.smart.classroom.subscription.utility.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;

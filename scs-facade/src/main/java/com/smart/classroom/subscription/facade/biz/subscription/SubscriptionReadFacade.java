@@ -12,13 +12,17 @@ import com.smart.classroom.subscription.facade.common.response.PagerResponse;
  **/
 public interface SubscriptionReadFacade {
 
+
     /**
      * 查找某个读者关于某个专栏的订阅情况
      */
-    SubscriptionDTO queryByColumnAndReaderId(ReaderColumnQueryRequest readerColumnQueryRequest);
+    SubscriptionDTO queryByColumnIdAndReaderId(ReaderColumnQueryRequest readerColumnQueryRequest);
+
 
     /**
      * 查找订阅情况分页
      */
     PagerResponse<SubscriptionDTO> page(SubscriptionPageRequest subscriptionPageRequest);
+
+
 }

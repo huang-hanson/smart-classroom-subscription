@@ -1,6 +1,6 @@
-package com.smart.classroom.subscription.domain.middleware;
+package com.smart.classroom.subscription.domain.middleware.mq;
 
-import com.smart.classroom.subscription.domain.middleware.info.MqSendResultInfo;
+import com.smart.classroom.subscription.domain.middleware.mq.info.MqSendResultInfo;
 
 /**
  * @author hanson.huang

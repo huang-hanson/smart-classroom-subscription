@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.helpers.MessageFormatter;
 
 import java.util.Random;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 /**
@@ -42,6 +43,15 @@ public class StringUtil extends StringUtils {
     //类似于sl4j的字符串格式化.使用 {} 做占位符。
     public static String format(String messagePattern, Object... arguments) {
         return MessageFormatter.arrayFormat(messagePattern, arguments).getMessage();
+    }
+
+    /**
+     * 生成一个uuid
+     *
+     * @return 一个唯一的uui
+     */
+    public static String uuid() {
+        return UUID.randomUUID().toString();
     }
 
 }

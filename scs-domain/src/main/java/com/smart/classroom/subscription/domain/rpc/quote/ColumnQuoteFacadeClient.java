@@ -9,7 +9,7 @@ import com.smart.classroom.subscription.domain.rpc.quote.vo.ColumnQuoteVO;
  **/
 public interface ColumnQuoteFacadeClient {
 
-    ColumnQuoteVO queryById(Long columnQuoteId);
+    ColumnQuoteVO queryById(long columnQuoteId);
 
-    ColumnQuoteVO queryByColumnId(Long columnId);
+    ColumnQuoteVO queryByColumnId(long columnId);
 }

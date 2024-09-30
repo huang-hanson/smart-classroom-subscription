@@ -29,5 +29,5 @@ public class PaymentCreateInfo {
     /**
      * 金额(单位：分)
      */
-    private String amount = null;
+    private Long amount = null;
 }

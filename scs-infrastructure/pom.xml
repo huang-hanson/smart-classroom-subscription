@@ -61,10 +61,10 @@
         <!-- ********************* 外部RPC服务依赖 start********************* -->
 
         <!--来自misc的接口-->
-<!--        <dependency>-->
-<!--            <groupId>com.smart.classroom</groupId>-->
-<!--            <artifactId>scm-facade</artifactId>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.smart.classroom</groupId>
+            <artifactId>scm-facade</artifactId>
+        </dependency>
 
         <!-- ********************* 外部RPC服务依赖 start********************* -->
 

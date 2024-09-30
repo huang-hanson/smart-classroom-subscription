@@ -9,5 +9,5 @@ import com.smart.classroom.subscription.domain.rpc.reader.vo.ReaderVO;
  **/
 public interface ReaderFacadeClient {
 
-    ReaderVO queryById(Long readerId);
+    ReaderVO queryById(long readerId);
 }

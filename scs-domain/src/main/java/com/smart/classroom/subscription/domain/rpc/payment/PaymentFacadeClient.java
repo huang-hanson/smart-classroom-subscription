@@ -11,7 +11,7 @@ import com.smart.classroom.subscription.domain.rpc.payment.vo.PaymentVO;
  **/
 public interface PaymentFacadeClient {
 
-    PaymentVO queryByNo(long paymentId);
+    PaymentVO queryById(long paymentId);
 
     /**
      * 创建支付单

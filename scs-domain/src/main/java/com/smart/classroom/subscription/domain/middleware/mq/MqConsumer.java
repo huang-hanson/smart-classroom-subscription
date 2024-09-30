@@ -1,4 +1,4 @@
-package com.smart.classroom.subscription.domain.middleware;
+package com.smart.classroom.subscription.domain.middleware.mq;
 
 /**
  * @author hanson.huang

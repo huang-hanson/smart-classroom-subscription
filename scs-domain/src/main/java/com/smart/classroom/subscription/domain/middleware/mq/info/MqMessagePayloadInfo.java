@@ -1,4 +1,4 @@
-package com.smart.classroom.subscription.domain.middleware.info;
+package com.smart.classroom.subscription.domain.middleware.mq.info;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
